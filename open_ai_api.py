@@ -1,7 +1,9 @@
 import openai
 import requests
 from fastapi import FastAPI, Path
+from fastapi import FastAPI
 from pydantic import BaseModel
+import base64
 
 
 app = FastAPI()
@@ -29,6 +31,7 @@ class Prompt(BaseModel):
 
 @app.post("/items/")
 async def create_item(prompt: Prompt):
+    decoded_prompt = base64.b64decode(prompt.text).decode('utf-8')
 
     # return item.name
     API_KEY = ''
@@ -37,7 +40,7 @@ async def create_item(prompt: Prompt):
     model = 'text-davinci-003'
 
     response = openai.Completion.create(
-        prompt=prompt.text,
+        prompt=decoded_prompt,
         model = 'text-davinci-003'
     )
 
