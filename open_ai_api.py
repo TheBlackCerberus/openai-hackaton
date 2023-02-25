@@ -1,7 +1,6 @@
 import openai
 import requests
 from fastapi import FastAPI, Path
-from fastapi import FastAPI
 from pydantic import BaseModel
 
 
